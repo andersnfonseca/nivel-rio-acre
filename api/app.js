@@ -7,7 +7,7 @@ const app = express();
 const initalDate = '24/02/2024'
 require('dotenv').config();
 
-app.get('/api', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
 
     const response = await axios.get(process.env.API_URL + `&dataInicio=${initalDate}&dataFim=${today}`);
@@ -25,7 +25,7 @@ app.get('/api', async (req, res) => {
   }
 });
 
-app.get('/api/nivel', async (req, res) => {
+app.get('/nivel', async (req, res) => {
     try {
 
       const response = await axios.get(process.env.API_URL + `&dataInicio=${today}&dataFim=${today}`);
