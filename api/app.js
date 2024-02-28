@@ -29,6 +29,7 @@ app.get('/api/nivel', async (req, res) => {
     try {
 
       const response = await axios.get(process.env.API_URL + `&dataInicio=${today}&dataFim=${today}`);
+      console.log(process.env.API_URL + `&dataInicio=${today}&dataFim=${today}`)
 
         parseString(response.data, (err, result) => {
         if (err) {
