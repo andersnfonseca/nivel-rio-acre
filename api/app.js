@@ -11,46 +11,26 @@ app.get('/', async (req, res) => {
   try {
 
     const response = await axios.get(process.env.API_URL + `&dataInicio=${initalDate}&dataFim=${today}`);
-
-    parseString(response.data, (err, result) => {
+      parseString(response.data, (err, result) => {
       if (err) {
         throw err;
       }
 
-      res.json(result);
+      if (result && result.DataTable && result.DataTable['diffgr:diffgram'] && result.DataTable['diffgr:diffgram'][0].DocumentElement && result.DataTable['diffgr:diffgram'][0].DocumentElement[0].DadosHidrometereologicos) {
+        const dados = result.DataTable['diffgr:diffgram'][0].DocumentElement[0].DadosHidrometereologicos.map(dado => ({
+          Horario: dado.DataHora[0],
+          Nivel: dado.Nivel[0]
+        }));  
+        res.json(dados);
+      } else {
+        res.status(404).json({ error: 'Dados não encontrados ou em formato inválido' });
+      }
     });
   } catch (error) {
     console.error('Erro:', error);
     res.status(500).json({ error: 'Erro ao processar a requisição' });
   }
 });
-
-app.get('/nivel', async (req, res) => {
-    try {
-
-      const response = await axios.get(process.env.API_URL + `&dataInicio=${today}&dataFim=${today}`);
-      console.log(process.env.API_URL + `&dataInicio=${today}&dataFim=${today}`)
-
-        parseString(response.data, (err, result) => {
-        if (err) {
-          throw err;
-        }
-  
-        if (result && result.DataTable && result.DataTable['diffgr:diffgram'] && result.DataTable['diffgr:diffgram'][0].DocumentElement && result.DataTable['diffgr:diffgram'][0].DocumentElement[0].DadosHidrometereologicos) {
-          const dados = result.DataTable['diffgr:diffgram'][0].DocumentElement[0].DadosHidrometereologicos.map(dado => ({
-            Horario: dado.DataHora[0],
-            Nivel: dado.Nivel[0]
-          }));  
-          res.json(dados);
-        } else {
-          res.status(404).json({ error: 'Dados não encontrados ou em formato inválido' });
-        }
-      });
-    } catch (error) {
-      console.error('Erro:', error);
-      res.status(500).json({ error: 'Erro ao processar a requisição' });
-    }
-  });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
