@@ -1,1 +1,108 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+    font-family: 'Roboto Mono', monospace;
+    background: url('./assets/bg.jpeg') center/cover no-repeat;
+    width: 100vw;
+    height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.767);
+    z-index: -1;
+}
+
+.title {
+    font-size: 2rem;
+    text-align: center;
+    margin: 1rem;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+}
+
+#nivel {
+    font-size: 6rem;
+    text-align: center;
+    color: red;
+}
+
+#horario {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 1rem;
+}
+
+#cota {
+    font-size: 1rem;
+    text-align: center;
+    margin: 0.1rem;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    right: 1em;
+    width: 100%;
+    text-align: right;
+    padding: 0.2rem;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 2rem; 
+    }
+
+    #nivel {
+        font-size: 4rem;
+    }
+
+    #horario {
+        font-size: 1.2rem;
+}
+
+@media screen and (max-width: 480px) {
+    .title {
+        font-size: 1.5rem; 
+    }
+
+    #nivel {
+        font-size: 3rem;
+    }
+
+    #horario {
+        font-size: 1rem;
+    }
+}
+}

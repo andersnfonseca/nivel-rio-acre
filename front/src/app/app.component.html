@@ -1,25 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nível do Rio Acre hoje</title>
-</head>
-<body>
-
-  <div class="title">
-    <h1>Nível do Rio Acre Hoje:</h1>
-  </div>
-  <div class="container">
-         <div *ngIf="data">
-          <h2 id="nivel" *ngIf="data">{{ (data.Nivel / 100).toFixed(2) }}m</h2>
-          <h2 id="horario" *ngIf="data">Última atualização em {{ formatarHorario(data.Horario) }}h</h2>
-      </div>
-  </div>
-   
-  <footer>
-    <p>repo: <a href="https://github.com/andersnfonseca" target="_blank">anderson</a></p>
-  </footer>
-
-</body>
-</html>
+<div class="title">
+  <h1>Nível do Rio Acre Hoje:</h1>
+</div>
+<div class="container">
+       <div *ngIf="data">
+        <h2 id="nivel" *ngIf="data">{{ (data.Nivel / 100).toFixed(2) }}m</h2>
+        <h2 id="horario" *ngIf="data">Última atualização em {{ formatarHorario(data.Horario) }}h</h2>
+    </div>
+</div>
+ 
+<footer>
+  <p>repo: <a href="https://github.com/andersnfonseca" target="_blank">anderson</a></p>
+</footer>
