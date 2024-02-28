@@ -21,7 +21,7 @@ app.get('/', async (req, res) => {
           Horario: dado.DataHora[0],
           Nivel: dado.Nivel[0]
         }));  
-        res.json(dados);
+        res.json(dados[0]);
       } else {
         res.status(404).json({ error: 'Dados não encontrados ou em formato inválido' });
       }
