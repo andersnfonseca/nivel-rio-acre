@@ -12,8 +12,8 @@
   </div>
   <div class="container">
          <div *ngIf="data">
-          <h2 id="nivel" *ngFor="let item of data">{{ (item.Nivel / 100).toFixed(2) }}m</h2>
-          <h2 id="horario" *ngFor="let item of data">Última atualização em {{ formatarHorario(item.Horario) }}h</h2>
+          <h2 id="nivel" *ngIf="data">{{ (data.Nivel / 100).toFixed(2) }}m</h2>
+          <h2 id="horario" *ngIf="data">Última atualização em {{ formatarHorario(data.Horario) }}h</h2>
       </div>
   </div>
    
