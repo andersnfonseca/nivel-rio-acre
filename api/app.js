@@ -9,13 +9,9 @@ require('dotenv').config();
 const cors = require('cors')
 
 app.use(cors())
+app.options('*', cors())
 
 app.get('/', async (req, res) => {
-<<<<<<< HEAD
-  res.setHeader('Cache Control', 'no-cache', 'no-store', 'must-revalidate');
-=======
-  res.setHeader('Cache-Control', 'no-cache');
->>>>>>> 86c6661d536c72f020be625b45ecd433682b80ef
   try {
 
     const response = await axios.get(process.env.API_URL + `&dataInicio=${initalDate}&dataFim=${today}`);
