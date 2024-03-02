@@ -1,5 +1,6 @@
 const nivel = document.getElementById('nivel');
 const horario = document.getElementById('horario');
+const title = document.getElementById('title');
 const API_URL = 'https://nivelrioacreapi.vercel.app/';
 
 const getNivelAndHour = async () => {
@@ -7,7 +8,7 @@ const getNivelAndHour = async () => {
     const response = await fetch(`${API_URL}v1/api`);
     const data = await response.json();
     nivel.innerHTML = (data.Nivel / 100).toFixed(2) + 'm';
-
+    title.innerHTML = 'Nível do Rio Acre Hoje:';
     const horario = new Date(data.Horario);
     const dia = String(horario.getDate()).padStart(2, '0');
     const mes = String(horario.getMonth() + 1).padStart(2, '0');
