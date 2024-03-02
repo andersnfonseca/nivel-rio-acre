@@ -9,7 +9,10 @@
       {
         "src": "/(.*)",
         "dest": "app.js",
+<<<<<<< HEAD
         "methods": ["GET"],
+=======
+>>>>>>> 86c6661d536c72f020be625b45ecd433682b80ef
         "headers": { "Cache-Control": "no-store" }
       }
     ]
