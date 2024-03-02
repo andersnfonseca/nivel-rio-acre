@@ -1,10 +1,10 @@
 const nivel = document.getElementById('nivel');
 const horario = document.getElementById('horario');
-const API_URL = 'https://nivelrioacreapi.vercel.app';
+const API_URL = window.location.href;
 
 const getNivelAndHour = async () => {
 
-    const response = await fetch(`${API_URL}`);
+    const response = await fetch(`${API_URL}v1/api`);
     const data = await response.json();
     nivel.innerHTML = (data.Nivel / 100).toFixed(2) + 'm';
 
