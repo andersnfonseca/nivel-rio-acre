@@ -1,6 +1,6 @@
 const nivel = document.getElementById('nivel');
 const horario = document.getElementById('horario');
-const API_URL = window.location.href;
+const API_URL = 'https://nivelrioacreapi.vercel.app/';
 
 const getNivelAndHour = async () => {
 
