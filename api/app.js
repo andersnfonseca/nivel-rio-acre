@@ -6,8 +6,12 @@ const today = getDate();
 const app = express();
 const initalDate = '24/02/2024'
 require('dotenv').config();
+const cors = require('cors')
+
+app.use(cors())
 
 app.get('/', async (req, res) => {
+  res.setHeader('Cache Control', 'no-cache', 'no-store', 'must-revalidate');
   try {
 
     const response = await axios.get(process.env.API_URL + `&dataInicio=${initalDate}&dataFim=${today}`);
