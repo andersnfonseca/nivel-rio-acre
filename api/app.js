@@ -8,6 +8,7 @@ const initalDate = '24/02/2024'
 require('dotenv').config();
 
 app.get('/', async (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache');
   try {
 
     const response = await axios.get(process.env.API_URL + `&dataInicio=${initalDate}&dataFim=${today}`);
