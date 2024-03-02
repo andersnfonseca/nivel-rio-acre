@@ -68,8 +68,7 @@ body::before {
 }
 
 footer {
-    position: absolute;
-    right: 0;
+    position: fixed;
     width: 100%;  
     bottom: 0;
     text-align: center;
