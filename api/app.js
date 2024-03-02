@@ -8,10 +8,15 @@ const initalDate = '24/02/2024'
 require('dotenv').config();
 const cors = require('cors')
 
-app.use(cors())
-app.options('*', cors())
 
-app.get('/', async (req, res) => {
+const corsOptions = {
+  origin: 'https://nivelrioacre.vercel.app/',
+  optionsSuccessStatus: 200
+}
+
+app.use(cors())
+
+app.get('/', cors(corsOptions), async (req, res) => {
   try {
 
     const response = await axios.get(process.env.API_URL + `&dataInicio=${initalDate}&dataFim=${today}`);
