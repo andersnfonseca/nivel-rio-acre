@@ -9,7 +9,9 @@ const getNivelAndHour = async () => {
     const data = await response.json();
     nivel.innerHTML = (data.Nivel / 100).toFixed(2) + 'm';
     title.innerHTML = 'Nível do Rio Acre Hoje:';
+    
     const horario = new Date(data.Horario);
+    horario.setHours(horario.getHours() - 2);
     const dia = String(horario.getDate()).padStart(2, '0');
     const mes = String(horario.getMonth() + 1).padStart(2, '0');
     const ano = horario.getFullYear();
