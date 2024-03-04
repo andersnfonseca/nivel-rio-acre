@@ -6,6 +6,9 @@
     box-sizing: border-box;
     overflow-x: hidden;
     overflow-y: hidden;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-style: normal;
 }
 
 html, body {
@@ -19,7 +22,6 @@ body {
     align-items: center;
     color: white;
     position: relative;
-    font-family: 'Roboto Mono', monospace;
     background: url('./bg.jpeg') center/cover no-repeat;
     width: 100vw;
     height: 100vh;
