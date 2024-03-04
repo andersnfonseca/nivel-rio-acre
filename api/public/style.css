@@ -36,6 +36,23 @@ body::before {
     z-index: -1;
 }
 
+main {
+    display: none;
+}
+
+.loading {
+    display: block;
+    font-size: 2rem;
+    text-align: center;
+    margin: 1rem;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    from { opacity: 1; } 
+    to { opacity: 0.5; } 
+}
+
 .title {
     font-size: 2rem;
     text-align: center;
@@ -106,4 +123,5 @@ footer a {
         font-size: 1rem;
     }
 }
+
 }
