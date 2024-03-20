@@ -91,8 +91,7 @@ footer {
     width: 100%;  
     bottom: 0;
     text-align: right;
-    padding: 0.2rem;
-    margin: 0.2rem;
+    padding: 0.2rem 1rem;
 }
 
 footer a {
