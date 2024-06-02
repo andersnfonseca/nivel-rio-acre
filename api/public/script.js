@@ -9,7 +9,9 @@ const getNivelAndHour = async () => {
     try {
         const response = await fetch(`${API_URL}v1/api`);
         const data = await response.json();
-        
+         if (!data.Nivel) {
+            throw new Error('Nível do rio não encontrado.');
+        }
         nivel.textContent = (data.Nivel / 100).toFixed(2) + 'm';
         title.textContent = 'Nível do Rio Acre:';
         
