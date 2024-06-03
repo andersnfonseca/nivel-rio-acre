@@ -47,7 +47,7 @@ main {
     font-size: 2rem;
     text-align: center;
     margin: 1rem;
-    animation: blink 1s infinite;
+    animation: blink 1s;
 }
 
 @keyframes blink {
