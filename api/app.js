@@ -5,6 +5,7 @@ const app = express();
 require('dotenv').config();
 const cors = require('cors');
 const { getToday, getYersteday } = require('./utils/getDate');
+
 const today = getToday();
 const yersteday = getYersteday();
 app.use(cors())
@@ -30,15 +31,21 @@ app.get('/v1/api', async (req, res) => {
           Nivel: dado.Nivel[0]
         }));
 
-        let primeiroNivel = null;
-        for (let i = 0; i < dados.length; i++) {
+        let ultimoNivel = null;
+        let horarioDoUltimoNivel = null;
+        for (let i = dados.length - 1; i >= 0; i--) {
           if (dados[i].Nivel !== "") {
-            primeiroNivel = dados[i].Nivel;
+            ultimoNivel = dados[i].Nivel;
+            horarioDoUltimoNivel = dados[i].Horario;
             break;
           }
         }
 
-        res.json({ Horario: dados[0].Horario, Nivel: primeiroNivel });
+        if (ultimoNivel !== null) {
+          res.json({ Horario: horarioDoUltimoNivel, Nivel: ultimoNivel });
+        } else {
+          res.status(404).json({ error: 'Nenhum valor de Nivel encontrado' });
+        }
 
       } else {
         res.status(404).json({ error: 'Dados não encontrados ou em formato inválido' });
