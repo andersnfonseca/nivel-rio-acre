@@ -7,7 +7,7 @@ const cors = require('cors');
 const { getToday, getYersteday } = require('./utils/getDate');
 const today = getToday();
 const yersteday = getYersteday();
-app.use(cors())
+app.use(cors());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -30,16 +30,21 @@ app.get('/v1/api', async (req, res) => {
           Nivel: dado.Nivel[0]
         }));
 
-        let primeiroNivel = null;
-        for (let i = 0; i < dados.length; i++) {
+        let ultimoNivel = null;
+        let horarioUltimoNivel = null;
+        for (let i = dados.length - 1; i >= 0; i--) {
           if (dados[i].Nivel !== "") {
-            primeiroNivel = dados[i].Nivel;
+            ultimoNivel = dados[i].Nivel;
+            horarioUltimoNivel = dados[i].Horario;
             break;
           }
         }
 
-        res.json({ Horario: dados[0].Horario, Nivel: primeiroNivel });
-
+        if (ultimoNivel !== null) {
+          res.json({ Horario: horarioUltimoNivel, Nivel: ultimoNivel });
+        } else {
+          res.status(404).json({ error: 'Nenhum dado com nível encontrado' });
+        }
       } else {
         res.status(404).json({ error: 'Dados não encontrados ou em formato inválido' });
       }
