@@ -5,8 +5,10 @@ const app = express();
 require('dotenv').config();
 const cors = require('cors');
 const { getToday, getYersteday } = require('./utils/getDate');
+
 const today = getToday();
 const yersteday = getYersteday();
+
 app.use(cors());
 
 app.use((req, res, next) => {
@@ -30,10 +32,12 @@ app.get('/v1/api', async (req, res) => {
           Nivel: dado.Nivel[0]
         }));
 
+        console.log('Dados recebidos:', JSON.stringify(dados, null, 2));
+
         let ultimoNivel = null;
         let horarioUltimoNivel = null;
         for (let i = dados.length - 1; i >= 0; i--) {
-          if (dados[i].Nivel !== "") {
+          if (dados[i].Nivel != null && dados[i].Nivel.trim() !== "") {
             ultimoNivel = dados[i].Nivel;
             horarioUltimoNivel = dados[i].Horario;
             break;
