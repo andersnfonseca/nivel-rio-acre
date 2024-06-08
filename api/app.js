@@ -25,11 +25,15 @@ app.get('/v1/api', async (req, res) => {
         throw err;
       }
 
+      console.log('Parsed Result:', JSON.stringify(result, null, 2));
+
       if (result && result.DataTable && result.DataTable['diffgr:diffgram'] && result.DataTable['diffgr:diffgram'][0].DocumentElement && result.DataTable['diffgr:diffgram'][0].DocumentElement[0].DadosHidrometereologicos) {
         const dados = result.DataTable['diffgr:diffgram'][0].DocumentElement[0].DadosHidrometereologicos.map(dado => ({
           Horario: dado.DataHora[0],
           Nivel: dado.Nivel[0]
         }));
+
+        console.log('Dados:', JSON.stringify(dados, null, 2));
 
         let ultimoNivel = null;
         let horarioDoUltimoNivel = null;
