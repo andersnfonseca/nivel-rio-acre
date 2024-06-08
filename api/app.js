@@ -40,6 +40,9 @@ app.get('/v1/api', async (req, res) => {
           }
         }
 
+        // Log do nível encontrado
+        console.log('Último nível encontrado:', ultimoNivel);
+
         if (ultimoNivel !== null) {
           res.json({ Horario: horarioUltimoNivel, Nivel: ultimoNivel });
         } else {
