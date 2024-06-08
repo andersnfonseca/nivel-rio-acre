@@ -5,11 +5,9 @@ const app = express();
 require('dotenv').config();
 const cors = require('cors');
 const { getToday, getYersteday } = require('./utils/getDate');
-
 const today = getToday();
 const yersteday = getYersteday();
-
-app.use(cors());
+app.use(cors())
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -32,25 +30,16 @@ app.get('/v1/api', async (req, res) => {
           Nivel: dado.Nivel[0]
         }));
 
-        console.log('Dados recebidos:', JSON.stringify(dados, null, 2));
-
-        let ultimoNivel = null;
-        let horarioUltimoNivel = null;
-        for (let i = dados.length - 1; i >= 0; i--) {
-          if (dados[i].Nivel != null && dados[i].Nivel.trim() !== "") {
-            ultimoNivel = dados[i].Nivel;
-            horarioUltimoNivel = dados[i].Horario;
+        let primeiroNivel = null;
+        for (let i = 0; i < dados.length; i++) {
+          if (dados[i].Nivel !== "") {
+            primeiroNivel = dados[i].Nivel;
             break;
           }
         }
-        
-        console.log('Último nível encontrado:', ultimoNivel);
 
-        if (ultimoNivel !== null) {
-          res.json({ Horario: horarioUltimoNivel, Nivel: ultimoNivel });
-        } else {
-          res.status(404).json({ error: 'Nenhum dado com nível encontrado' });
-        }
+        res.json({ Horario: dados[0].Horario, Nivel: primeiroNivel });
+
       } else {
         res.status(404).json({ error: 'Dados não encontrados ou em formato inválido' });
       }
