@@ -5,7 +5,6 @@ const app = express();
 require('dotenv').config();
 const cors = require('cors');
 const { getToday, getYersteday } = require('./utils/getDate');
-
 const today = getToday();
 const yersteday = getYersteday();
 app.use(cors())
@@ -25,31 +24,21 @@ app.get('/v1/api', async (req, res) => {
         throw err;
       }
 
-      console.log('Parsed Result:', JSON.stringify(result, null, 2));
-
       if (result && result.DataTable && result.DataTable['diffgr:diffgram'] && result.DataTable['diffgr:diffgram'][0].DocumentElement && result.DataTable['diffgr:diffgram'][0].DocumentElement[0].DadosHidrometereologicos) {
         const dados = result.DataTable['diffgr:diffgram'][0].DocumentElement[0].DadosHidrometereologicos.map(dado => ({
           Horario: dado.DataHora[0],
           Nivel: dado.Nivel[0]
         }));
-        
-        res.json{('Dados:', JSON.stringify(dados, null, 2))};
 
-        let ultimoNivel = null;
-        let horarioDoUltimoNivel = null;
-        for (let i = dados.length - 1; i >= 0; i--) {
+        let primeiroNivel = null;
+        for (let i = 0; i < dados.length; i++) {
           if (dados[i].Nivel !== "") {
-            ultimoNivel = dados[i].Nivel;
-            horarioDoUltimoNivel = dados[i].Horario;
+            primeiroNivel = dados[i].Nivel;
             break;
           }
         }
 
-        if (ultimoNivel !== null) {
-          res.json({ Horario: horarioDoUltimoNivel, Nivel: ultimoNivel });
-        } else {
-          res.status(404).json({ error: 'Nenhum valor de Nivel encontrado' });
-        }
+        res.json({ Horario: dados[0].Horario, Nivel: primeiroNivel });
 
       } else {
         res.status(404).json({ error: 'Dados não encontrados ou em formato inválido' });
