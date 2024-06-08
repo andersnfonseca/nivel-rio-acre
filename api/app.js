@@ -32,8 +32,8 @@ app.get('/v1/api', async (req, res) => {
           Horario: dado.DataHora[0],
           Nivel: dado.Nivel[0]
         }));
-
-        console.log('Dados:', JSON.stringify(dados, null, 2));
+        
+        res.json{('Dados:', JSON.stringify(dados, null, 2))};
 
         let ultimoNivel = null;
         let horarioDoUltimoNivel = null;
