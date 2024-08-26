@@ -7,7 +7,8 @@ const cors = require('cors');
 const { getToday, getYersteday } = require('./utils/getDate');
 const today = getToday();
 const yersteday = getYersteday();
-app.use(cors())
+
+app.use(cors());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,18 +28,17 @@ app.get('/v1/api', async (req, res) => {
       if (result && result.DataTable && result.DataTable['diffgr:diffgram'] && result.DataTable['diffgr:diffgram'][0].DocumentElement && result.DataTable['diffgr:diffgram'][0].DocumentElement[0].DadosHidrometereologicos) {
         const dados = result.DataTable['diffgr:diffgram'][0].DocumentElement[0].DadosHidrometereologicos.map(dado => ({
           Horario: dado.DataHora[0],
-          Nivel: dado.Nivel[0]
+          Nivel: dado.Nivel[0] === "" ? null : dado.Nivel[0]
         }));
 
-        let primeiroNivel = null;
         for (let i = 0; i < dados.length; i++) {
-          if (dados[i].Nivel !== "") {
-            primeiroNivel = dados[i].Nivel;
-            break;
+          if (dados[i].Nivel !== null) {
+            res.json({ Horario: dados[i].Horario, Nivel: dados[i].Nivel });
+            return;
           }
         }
 
-        res.json({ Horario: dados[0].Horario, Nivel: primeiroNivel });
+        res.status(404).json({ error: 'Nenhum nível válido encontrado' });
 
       } else {
         res.status(404).json({ error: 'Dados não encontrados ou em formato inválido' });
