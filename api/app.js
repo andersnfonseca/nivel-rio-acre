@@ -31,14 +31,21 @@ app.get('/v1/api', async (req, res) => {
           Nivel: dado.Nivel[0] === "" ? null : dado.Nivel[0]
         }));
 
+        let nivelDisponivel = null;
+        let horarioDisponivel = null;
+        
         for (let i = 0; i < dados.length; i++) {
           if (dados[i].Nivel !== null) {
-            res.json({ Horario: dados[i].Horario, Nivel: dados[i].Nivel });
-            return;
+            nivelDisponivel = dados[i].Nivel;
+            horarioDisponivel = dados[i].Horario;
           }
         }
 
-        res.status(404).json({ error: 'Nenhum nível válido encontrado' });
+        if (nivelDisponivel !== null) {
+          res.json({ Horario: horarioDisponivel, Nivel: nivelDisponivel });
+        } else {
+          res.status(404).json({ error: 'Nenhum nível válido encontrado' });
+        }
 
       } else {
         res.status(404).json({ error: 'Dados não encontrados ou em formato inválido' });
