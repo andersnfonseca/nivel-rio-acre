@@ -31,6 +31,10 @@ app.get('/v1/api', async (req, res) => {
           Nivel: dado.Nivel[0] === "" ? null : dado.Nivel[0]
         }));
 
+       
+        dados.sort((a, b) => new Date(b.Horario) - new Date(a.Horario));
+
+        
         let nivelDisponivel = null;
         let horarioDisponivel = null;
         
@@ -38,6 +42,7 @@ app.get('/v1/api', async (req, res) => {
           if (dados[i].Nivel !== null) {
             nivelDisponivel = dados[i].Nivel;
             horarioDisponivel = dados[i].Horario;
+            break;
           }
         }
 
